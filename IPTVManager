@@ -1,0 +1,4 @@
+Domai\Entities\ApplicationUser.cs
+using Microsoft.AspNetCore.Identity;
+
+namespace IPTVManager.Domain.Entities;

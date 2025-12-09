@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPTVManager.Data\IPTVManager.Data.csproj" />
+    <ProjectReference Include="..\IPTVManager.Services\IPTVManager.Services.csproj" />
+    <ProjectReference Include="..\IPTVManager.Shared\IPTVManager.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

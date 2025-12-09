@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPTVManager.Data\IPTVManager.Data.csproj" />
+    <ProjectReference Include="..\IPTVManager.Domai\IPTVManager.Domain.csproj" />
+    <ProjectReference Include="..\IPTVManager.Shared\IPTVManager.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
