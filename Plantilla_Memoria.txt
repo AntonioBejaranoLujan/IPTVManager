@@ -1,0 +1,1558 @@
+
+MEMORIA ESCRITA DEL PROYECTO
+
+CFGS Desarrollo de Aplicaciones Web
+
+Gestor Familiar de Listas IPTV y Licencias: Desarrollo de API Rest con Arquitectura en capas
+
+Autor: Antonio Luis Bejarano Luján
+Tutor: Tamara González Gómez
+Fecha de entrega: 11/12/2025
+Convocatoria: 1S2526
+Documentos del proyecto: Enlace a la carpeta del Drive
+
+
+Índice de contenidos
+1. INTRODUCCIÓN (3-4 PÁGINAS)	3
+1.1. Motivación	3
+1.2. Abstract	3
+1.3. Objetivos propuestos (generales y específicos)	3
+2. Estado del Arte (4-5 páginas)	4
+3. METODOLOGÍA USADA (2-4 PÁGINAS)	5
+4. TECNOLOGÍAS Y HERRAMIENTAS UTILIZADAS EN EL PROYECTO
+(2-3 PÁGINAS)	6
+5. PLANIFICACIÓN, DIAGNÓSTICO Y CONTEXTO LABORAL (1-2 PÁGINAS)	7
+6. ANÁLISIS DEL PROYECTO (8-16 PÁGINAS)	8
+7. DISEÑO DEL PROYECTO (6-14 PÁGINAS)	9
+8. DESPLIEGUE Y PRUEBAS (4-10 PÁGINAS)	10
+9. CONCLUSIONES (1-2 PÁGINAS)	11
+10. VÍAS FUTURAS (1-2 PÁGINAS)	12
+11. BIBLIOGRAFÍA/WEBGRAFÍA (1-2 PÁGINAS)	13
+12. ANEXOS	14
+1.1. MANUAL DE USUARIO	14
+
+
+1 INTRODUCCIÓN
+1.1 Motivación
+La idea de este proyecto surgió de una necesidad real en mi familia. Tenemos varias suscripciones a servicios IPTV y plataformas de streaming (Netflix, HBO, un par de listas IPTV), y siempre había problemas: no sabíamos cuándo vencían las licencias, las contraseñas estaban anotadas en diferentes sitios, y en general había bastante desorganización.
+
+Desde el punto de vista del ciclo formativo, vi que este proyecto me permitiría aplicar todo lo aprendido: bases de datos, programación en C#, APIs REST, y arquitectura de software en capas.
+
+He elegido tecnologías .NET (ASP.NET Core, Entity Framework Core, Blazor) 
+por varias razones:
+
+1. C# fue mi primer lenguaje de programación en el ciclo y desde el principio quedé fascinado con él. Aunque posteriormente trabajamos más con Java, siempre he tenido preferencia por el ecosistema Microsoft.
+2. Alta demanda laboral en España (más de 2.500 ofertas mensuales según InfoJobs).
+3. Documentación oficial completa y en español (docs.microsoft.com).
+4. Ecosistema integrado desde el IDE hasta la base de datos.
+
+Al principio pensaba hacer una base de datos simple con frontend básico, pero decidí enfocarme en crear una API REST sólida que pudiera servir no solo para web, sino también para futuras aplicaciones móviles. La decisión de priorizar el backend se basó en que una API REST bien diseñada puede servir a múltiples tipos de clientes.
+1.1 Abastract
+This project consists of developing the backend of a web application for managing IPTV licenses, M3U playlists, and authorized devices, with features for parental control and audit system.
+
+The system has been built using .NET 8 with layered architecture: domain, data access, business logic, and REST API. The backend consists of a complete REST API documented with Swagger/OpenAPI.
+
+Main implemented features: Complete REST API with 7 endpoints for license management, user authentication with ASP.NET Core Identity, relational database with 13 tables, DTO pattern implementation, server-side validations, and version control with Git.
+
+Technologies: ASP.NET Core 8.0, C# 12, Entity Framework Core 8.0.21, SQL Server, Swagger/OpenAPI, Git, Visual Studio 2022.
+
+1.2 Objetivos propuestos
+
+1.1.1 Objetivo general:
+Desarrollar el backend de una aplicación web para la gestión de licencias IPTV mediante una API REST completa y documentada, implementando una arquitectura en capas con base de datos relacional, sistema de autenticación y validaciones de negocio.
+
+1.1.2 Objetivos específicos:
+OE1. Arquitectura en capas separando dominio, datos, servicios y API.
+      ? COMPLETADO
+OE2. API REST con 7 endpoints documentados con Swagger.
+      ? COMPLETADO
+OE3. ASP.NET Core Identity configurado para autenticación.
+      ? COMPLETADO
+OE4. Modelo de datos con 6 tablas relacionadas en SQL Server.
+      ? COMPLETADO
+OE5. Entity Framework Core con migraciones Code-First.
+      ? COMPLETADO
+OE6. Servicios de negocio con inyección de dependencias.
+      ? COMPLETADO
+OE7. DTOs para separar entidades de objetos transferidos.
+      ? COMPLETADO
+OE8. Validaciones de negocio en servidor.
+      ? COMPLETADO
+OE9. Documentación interactiva con Swagger/OpenAPI.
+      ? COMPLETADO
+OE10. Control de versiones con Git.
+      ? COMPLETADO
+
+1.1.3 OBJETIVOS PARCIALMENTE COMPLETADOS:
+OE11. Configuración de Blazor Server (estructura base, sin funcionalidad).
+      ?? PARCIAL
+OE12. Modelado de control parental (campos creados, sin flujo completo).
+   ?? PARCIAL
+
+1.1.4 Justificación del alcance:
+El proyecto se centró en desarrollar un backend sólido que sirva como fundamento para futuras ampliaciones. Se priorizó:
+
+* Una API REST completa y funcional
+* Arquitectura en capas profesional
+* Modelo de datos robusto con relaciones correctas
+* Validaciones de negocio implementadas
+* Documentación técnica exhaustiva
+
+Este enfoque permite extensibilidad futura mediante implementación de 
+interfaz Blazor, aplicaciones móviles o integración con otros sistemas.
+
+1.1.5 Relación con los módulos del ciclo formativo:
+* Bases de datos: Modelo relacional, 6 tablas, SQL Server
+* Programación: POO en C# 12, interfaces, LINQ, excepciones
+* Entornos de desarrollo: Visual Studio 2022, Git, NuGet, debugging
+* Desarrollo web servidor: ASP.NET Core, EF Core, Identity, API REST
+* Despliegue de aplicaciones: Configuración entornos, connection strings
+
+Este proyecto contribuye al desarrollo de las siguientes competencias del título de Técnico Superior en Desarrollo de Aplicaciones Web:
+* Configurar y explotar sistemas informáticos.
+* Desarrollar aplicaciones multiplataforma.
+* Desarrollar aplicaciones web utilizando tecnologías específicas.
+* Integrar contenidos en la lógica de una aplicación web.
+* Desarrollar interfaces web de acuerdo con un manual de estilo.
+* Desarrollar componentes multimedia para su integración en aplicaciones web.
+* Integrar componentes software en el entorno del servidor web.
+* Desarrollar servicios para integrar sus funciones en otras aplicaciones web.
+* Completar y aplicar procedimientos de seguimiento del ciclo de vida según normas establecidas.
+
+2 ESTADO DEL ARTE
+2.1 Situación actual de IPTV y streaming
+Durante los últimos años he visto cómo el consumo de contenido ha cambiado completamente. Antes solo teníamos Netflix, ahora casi todo el mundo tiene varias suscripciones: HBO, Amazon Prime, Disney+, y servicios IPTV locales.
+
+Según un informe que leí (Digital 2024 de Hootsuite), en España el 92% de las casas tienen al menos un servicio de streaming, y un 34% tienen tres o más. En mi familia pasa exactamente eso: tenemos Netflix, HBO y dos listas IPTV diferentes.
+
+El problema es que gestionar todo esto se vuelve un lío:
+* No sabemos qué contenido está en qué plataforma.
+* Las contraseñas están guardadas en diferentes sitios.
+* Se nos olvidan las fechas de renovación y nos cobran sin darnos cuenta.
+* No hay forma de controlar qué ven los más pequeños de la casa.
+* No existe ninguna herramienta que junte todo esto.
+
+¿Qué herramientas existen ya?
+Antes de empezar a programar, investigué qué opciones había en el mercado. Probé varias aplicaciones y revisé sus características:
+
+a. PLEX MEDIA SERVER
+Lo que hace:
+Es un servidor multimedia que organiza películas y series. Tiene una interfaz muy bonita y funciona en muchos dispositivos.
+¿Por qué no me sirvió?
+* Está más pensado para contenido que tienes descargado en el ordenador.
+* No te ayuda a gestionar las suscripciones de Netflix, HBO, etc.
+* El control parental es bastante básico.
+* La versión gratuita tiene muchas limitaciones.
+Precio: Gratis con limitaciones / 4.99€ al mes la versión completa.
+
+b. KODI
+Lo que hace:
+Es un programa gratuito y open source que puedes personalizar mucho. Tiene miles de addons para ver de todo.
+¿Por qué no me sirvió?
+* Es bastante complicado de configurar si no sabes de informática
+* Cada addon que instalas tiene su propio usuario y contraseña
+* No gestiona las licencias ni te avisa de vencimientos
+* Mi familia no sabría usarlo sin que yo estuviera ahí explicándoles
+Precio: Gratis (open source)
+
+c. TIVIMATE (Solo para Android TV)
+Lo que hace:
+Es un reproductor de IPTV específico para televisores Android. Tiene una 
+interfaz pensada para usar con el mando a distancia.
+¿Por qué no me sirvió?
+* Solo funciona en televisores Android.
+* No puedes gestionarlo desde el móvil o el ordenador.
+* No lleva control de las licencias ni las contraseñas.
+* Cada vez que cambias una contraseña tienes que meterla en la tele.
+Precio: Gratis básico / 19.99€ de pago único.
+
+d. Gestores de contraseñas (LastPass, 1Password)
+Lo que hacen:
+Aplicaciones para guardar todas tus contraseñas de forma segura.
+¿Por qué no me sirvieron?
+* No están pensados específicamente para IPTV o streaming
+* No te avisan cuando caduca una suscripción
+* No tienen control parental
+* No puedes gestionar qué dispositivos están autorizados
+Precio: Desde gratis hasta 7.99€ al mes
+
+Tabla de comparación
+      Hice una tabla para ver qué funcionalidades tenía cada una:
+
+Lo que necesitoPlexKODITiviMateGestores de contraseñasGestionar licencias????Avisos de vencimiento????Control parental??Básico??Básico??Básico?Gestión de dispositivos????Ver quién accedió????
+Conclusión de mi investigación
+Después de probar todo esto, me di cuenta de que no existía ninguna herramienta que hiciera exactamente lo que yo necesitaba:
+	
+* Ninguna gestiona específicamente licencias de servicios IPTV.
+* Ninguna te avisa cuando va a vencer una suscripción.
+* El control parental es muy básico en todas.
+* No puedes ver quién ha accedido y cuándo.
+
+2.2 Las tecnologías que elegí:
+Para hacer el proyecto investigué las tecnologías más actuales:
+ASP.NET CORE 8.0: Es lo último de Microsoft para hacer aplicaciones web y APIs. Salió en noviembre de 2023 y tiene soporte oficial hasta 2026.
+Lo elegí porque:
+* Es muy rápido (he visto benchmarks y está entre los 5 mejores del mundo)
+* Microsoft lo mantiene y actualiza constantemente
+* Hay muchísima documentación en español
+* Estaba familiarizado con C#
+
+ENTITY FRAMEWORK CORE 8.0
+Es una herramienta que te permite trabajar con bases de datos usando código C# en vez de escribir SQL a mano.
+  ¿Por qué me gustó?
+* Crea las tablas automáticamente desde el código.
+* Es mucho más fácil que escribir SQL.
+* Si te equivocas, el compilador te avisa antes de ejecutar.
+  Qué me costó:
+* Entender cómo funcionan las relaciones entre tablas me llevó varios días.
+* Los errores de las migraciones a veces son confusos.
+
+BLAZOR SERVER
+Es un framework de Microsoft para hacer interfaces web usando C# en vez de JavaScript.
+  ¿Por qué lo elegí?
+* No hace falta aprender JavaScript en profundidad.
+* Puedes hacer debugging como si fuera una aplicación normal de C#
+* Todo el código está en el servidor, el navegador solo muestra.
+o ¿Por qué no lo implementé completamente?
+* Me di cuenta de que me estaba quedando sin tiempo.
+* Decidí centrarme en hacer bien el backend primero.
+
+¿Por qué elegí .NET en vez de otras cosas?
+Podría haber usado Java, Node.js, Python o PHP, pero elegí .NET por:
+* C# fue mi primer lenguaje: Cuando empecé la FP me enseñaron C# y me gustó mucho más que Java. La sintaxis me parece más clara.
+* Hay mucho trabajo: Busqué en InfoJobs y hay más de 2.500 ofertas al mes que piden .NET en España.
+* Documentación en español: En docs.microsoft.com está todo explicado muy bien y en español.
+* Todo está integrado: Visual Studio, SQL Server, Entity Framework... todo está hecho para funcionar junto.
+
+Otras opciones que consideré:
+* JAVA + SPRING: Lo vi en clase pero es más complicado de configurar.
+* NODE.JS: No me gusta tanto JavaScript, prefiero C#
+* PYTHON + DJANGO: Más lento y hay menos trabajo en España.
+* PHP + LARAVEL: Es más viejo, prefiero algo más moderno.
+
+¿Qué aporta mi proyecto?
+Mi proyecto aporta algo que no existe ahora mismo:
+* Un backend sólido con API REST bien documentada.
+* Base de datos bien diseñada y relacionada.
+* Sistema de autenticación preparado.
+* Validaciones para que no se puedan meter datos incorrectos.
+* Documentación con Swagger para probar todo desde el navegador.
+* Preparado para que en el futuro se le pueda hacer interfaz web o app móvil.
+La idea de hacer primero el backend bien es que después cualquier tipo de aplicación (web, móvil, etc.) puede usar la misma API.
+
+3 Metodología utilizada
+3.1 ¿Cómo organicé mi trabajo?
+Para no volverme loco con el proyecto, decidí organizarlo por semanas. Cada semana tenía objetivos concretos que quería cumplir. Es parecido a lo que llaman "metodología ágil" en las empresas, pero adaptado a que lo hacía yo solo.
+
+Lo que hice fue:
+* Dividir todo el trabajo en tareas pequeñas.
+* Cada semana completar algunas tareas.
+* Si algo no salía, ajustar el plan para la semana siguiente.
+* Ir probando todo mientras lo hacía, no dejar las pruebas para el final.
+* Ir documentando las decisiones importantes.
+
+3.2 Las 5 fases del proyecto
+Dividí todo el proyecto en 5 fases grandes:
+
+Fase 1: pensar y planificar
+* Pensar bien qué problema quería resolver.
+* Buscar qué aplicaciones parecidas había ya (Plex, Kodi, etc.)
+* Hacer una lista de todas las cosas que debería tener el proyecto.
+* Decidir qué tecnologías iba a usar (C#, ASP.NET Core, etc.)
+* Hacer un diseño básico de cómo iba a estar estructurado todo.
+* Presentarle la idea a mi tutor para que me la aprobase.
+
+Fase 2: diseñar todo en detalle
+* Diseñar la base de datos (qué tablas iba a tener, cómo se relacionaban)
+* Normalizar la base de datos (para que no hubiera datos duplicados)
+* Definir las entidades en C# (License, Playlist, Device, etc.)
+* Diseñar la API (qué endpoints iba a tener, qué hacía cada uno)
+* Hacer dibujos de cómo sería la interfaz (aunque luego no la hice)
+* Escribir los "casos de uso" (qué puede hacer cada usuario)
+* Hacer el diagrama de clases.
+
+FASE 3: PROGRAMAR TODO
+Esta fue la fase más larga. La dividí en 3 semanas:
+
+Semana 1: Las entidades y la base de datos
+* Crear los 6 proyectos en Visual Studio.
+* Programar las 6 entidades (ApplicationUser, License, Playlist, etc.)
+* Configurar Entity Framework Core.
+* Crear el DbContext (la clase que gestiona la base de datos)
+* Hacer la primera migración y crear la base de datos.
+
+Resultado:
+* Las 6 entidades funcionando.
+* Base de datos con 13 tablas creada.
+* Las relaciones entre tablas bien configuradas.
+
+Problemas que tuve:
+* Me salía un error de "referencia circular" al intentar devolver una licencia en JSON. Lo solucioné poniendo [JsonIgnore] en la propiedad User.
+* Al principio hice que todas las licencias necesitaran un usuario, pero después me di cuenta de que era mejor hacerlo opcional para poder probar la API sin tener que crear usuarios primero.
+* Tuve problemas con las versiones de dotnet-ef. Tenía instalada la versión para .NET 10 pero mi proyecto es .NET 8, así que tuve que desinstalar y volver a instalar la correcta.
+
+Semana 2: Los servicios y la API
+* Crear LicenseService (la clase con toda la lógica de negocio)
+* Crear los DTOs (objetos para transferir datos)
+* Crear LicensesController (el controlador de la API)
+* Configurar Swagger para poder probar la API
+* Implementar las validaciones (que no se puedan crear licencias con fecha pasada, etc.)
+
+Resultado:
+* LicenseService con 7 métodos funcionando.
+* DTOs creados (CreateLicenseDto, LicenseDto)
+* API con 7 endpoints operativos.
+* Swagger funcionando perfecto.
+
+Problemas que tuve:
+Al principio me salía un error que decía "The User field is required". Tardé un rato en darme cuenta de que era porque no había hecho el UserId opcional en la entidad.
+No tenía muy claro si era mejor usar servicios o acceder directamente al DbContext desde el controlador. Al final decidí usar servicios porque es más profesional y más fácil de mantener.
+
+Semana 3: Identity y preparar Blazor
+* Configurar ASP.NET Core Identity para la autenticación.
+* Preparar la estructura del proyecto Blazor.
+* Crear las entidades de control parental y auditoría.
+
+Resultado:
+* Identity configurado.
+* Blazor Server preparado (sin páginas funcionales)
+* Entidades modeladas.
+
+Problemas que tuve:
+* Configurar Identity con un DbContext personalizado me costó bastante.
+* Me di cuenta de que no me iba a dar tiempo a implementar toda la interfaz Blazor, así que decidí dejarlo solo configurado.
+
+
+FASE 4: PROBAR TODO Y CORREGIR ERRORES
+* Probar todos los endpoints de la API con Swagger.
+* Probar casos raros (qué pasa si pongo una fecha incorrecta, qué pasa si intento borrar algo que no existe, etc.)
+* Corregir los bugs que iba encontrando.
+* Mejorar algunas consultas que eran lentas.
+* Limpiar el código (quitar cosas que no usaba, comentarios viejos, etc.)
+
+¿Cómo probé?
+* Swagger para probar manualmente.
+* Postman para hacer pruebas más complejas.
+* SQL Server Management Studio para ver qué consultas generaba Entity Framework.
+
+Bugs que encontré y arreglé:
+* El cálculo de cuántos días falta para que venciera una licencia a veces daba negativo.
+* Si intentabas borrar una licencia que no tenía usuario, daba error.
+* Las fechas se veían mal en el JSON (solucionado configurando el formato)
+
+
+FASE 5: ESCRIBIR LA MEMORIA Y PREPARAR TODO
+* Escribir toda esta memoria.
+* Hacer los diagramas (base de datos, casos de uso, etc.)
+* Escribir el manual de instalación.
+* Escribir el manual de usuario.
+* Preparar el vídeo de presentación.
+* Comprimir todo el código en un ZIP.
+
+3.3 ¿Cómo usé Git?
+Desde el primer día usé Git para tener controlado todo el código. Así si 
+la liaba con algo, podía volver atrás.
+
+¿Cómo hacía los commits?
+Intenté que los mensajes de los commits explicaran bien qué había cambiado:
+* "feat: Implementar CRUD de licencias" (cuando añadía algo nuevo)
+* "fix: Corregir validación de fechas" (cuando arreglaba un bug)
+* "docs: Actualizar README" (cuando cambiaba documentación)
+
+El archivo .gitignore:
+Lo configuré para que Git no subiera:
+* Las carpetas bin/ y obj/ (archivos compilados que no hacen falta)
+* La carpeta .vs/ (configuración personal de Visual Studio)
+* Los archivos de base de datos (*.mdf, *.ldf)
+
+4 Tecnologías y herramientas utilizadas en el proyecto
+4.1 ¿Por qué elegí estas tecnologías?
+Como ya expliqué en la introducción, elegí el ecosistema .NET por varias razones: C# fue mi primer lenguaje y me encantó, hay mucha salida en España, y la documentación de Microsoft es muy buena. Pero ahora voy a explicar en detalle qué tecnologías concretas usé y para qué.
+
+4.2 Las tecnologías que usé
+El proyecto usa estas tecnologías principales:
+
+Mi Stack TecnológicoBackend (lo que más tiempo me llevó)* ASP.NET Core 8.0 Web API
+* C#
+* Entity Framework Core 8.0.21
+* ASP.NET Core Identity 8.0.21
+* Swagger/OpenAPI 8.1.4Frontend (sólo configurado, sin funcionalidad)* Blazor Server 8.0 (estructura base)
+* Bootstrap 5 (preparado pero no usado)Base de datos* SQL Server LocalDB (para desarrollo)
+* Entity Framework MigrationsHerramientas* Visual Studio 2022 Community.
+* Git 2.43
+* SQL Server Management Studio (opcional)
+* Postman (para probar la API)
+4.3 El backend (donde está todo el trabajo)
+ASP.NET CORE 8.0
+Es lo que usé para hacer la API REST. Salió en noviembre de 2023 y es la versión LTS (Long Term Support), que significa que Microsoft la va a mantener y actualizar hasta 2026.
+
+Lo que más me gustó:
+* Es muy rápido. He visto comparaciones con otros frameworks y está entre los más rápidos del mundo.
+* Visual Studio te ayuda mucho con el IntelliSense (te autocompleta el código y te avisa de errores antes de ejecutar).
+* Los errores que da son bastante claros, no como en otros lenguajes donde no entiendes qué ha pasado.
+
+ENTITY FRAMEWORK CORE 8.0.21
+Es un ORM, que significa Object-Relational Mapper. Básicamente es una herramienta que te permite trabajar con la base de datos usando objetos de C# en vez de escribir SQL a mano.
+¿Cómo funciona?
+* Defines las clases en C# (License, Playlist, etc.)
+* Entity Framework crea las tablas automáticamente
+* Para hacer consultas usas LINQ (una especie de SQL pero dentro de C#)
+Lo bueno:
+* No hace falta escribir SQL (aunque puedes si quieres)
+* Si te equivocas en una consulta, el compilador te avisa antes de ejecutar.
+* Las migraciones te permiten cambiar la estructura de la base de datos de forma controlada.
+Lo malo (o lo que me costó):
+* Al principio no entendía bien cómo funcionaban las relaciones entre tablas.
+* Los errores de las migraciones a veces son confusos.
+* Tuve un problema con las versiones: tenía instalada la herramienta dotnet-ef para .NET 10 pero mi proyecto es .NET 8, y no me funcionaba hasta que me di cuenta del problema.
+
+ASP.NET CORE IDENTITY 8.0.21
+Es el sistema de autenticación que viene con ASP.NET Core. Lo usé para 
+gestionar usuarios y contraseñas.
+¿Qué hace?
+* Crea las tablas de usuarios automáticamente (AspNetUsers, AspNetRoles, etc.)
+* Guarda las contraseñas de forma segura (hasheadas, no en texto plano)
+* Te da métodos para registrar usuarios, hacer login, etc.
+Configuración que hice:
+Para desarrollo, bajé un poco los requisitos de las contraseñas:
+* Longitud mínima: 6 caracteres (en vez de 8)
+* Debe tener al menos un número.
+* No hace falta mayúsculas ni símbolos especiales.
+Lo hice así para poder probar más fácilmente. En producción habría que poner requisitos más estrictos.
+Estado actual:
+* Identity está configurado, pero no llegué a implementar las páginas de login y registro porque me centré en el backend.
+
+SWAGGER/OPENAPI 8.1.4
+Es una herramienta que genera documentación automática de tu API y te deja 
+probarla directamente desde el navegador.
+¿Por qué me gustó?
+* Cada vez que añadía un endpoint nuevo, aparecía automáticamente en Swagger.
+* Puedes probar la API poniendo los datos directamente en el navegador, sin necesidad de Postman.
+* Genera la especificación OpenAPI automáticamente (que es un estándar para documentar APIs)
+¿Cómo acceder?
+* Cuando ejecutas el proyecto, vas a https://localhost:7235/swagger y te sale una página con todos los endpoints documentados.
+
+4.4 La Base de Datos
+SQL SERVER LOCALDB
+Es una versión ligera de SQL Server que viene con Visual Studio. Es perfecta para desarrollo.
+¿Por qué la usé?
+* Ya viene instalada con Visual Studio, no hace falta instalar nada más.
+* Es compatible con SQL Server completo, así que si después quiero desplegar en un servidor real, no hace falta cambiar nada.
+* Muy fácil de usar.
+Las tablas que tengo:
+* 6 tablas principales que yo definí (ApplicationUser, License, Playlist, PlaylistItem, Device, AuditLog)
+* 7 tablas de Identity (AspNetUsers, AspNetRoles, etc.)
+* Total: 13 tablas
+
+4.5 Las herramientas de desarrollo
+VISUAL STUDIO 2022 COMMUNITY
+Es el IDE (entorno de desarrollo) que usé. Es gratis para estudiantes.
+Lo que más usé:
+* IntelliSense: Te autocompleta el código mientras escribes.
+* Debugging: Poner breakpoints para ver qué está pasando.
+* Explorador de soluciones: Para navegar entre los 6 proyectos.
+* NuGet Package Manager: Para instalar las librerías que necesitaba.
+* Git integrado: Para hacer commits sin salir de Visual Studio.
+* SQL Server Object Explorer: Para ver las tablas de la base de datos.
+
+Shortcuts que más usé:
+* F5: Ejecutar el proyecto.
+* Shift + F5: Parar el proyecto.
+* Ctrl + K, Ctrl + D: Formatear el código.
+* Ctrl + .: Mostrar sugerencias.
+* F9: Poner/quitar breakpoint.
+
+GIT 2.43
+Lo usé para tener el código versionado y no perder nada.
+Configuración:
+git config --global user.name "Antonio Bejarano" git config --global user.email "antonil2@msn.com"
+Comandos que más usé:
+* git status: Ver qué archivos he cambiado.
+* git add .: Añadir todos los cambios.
+* git commit -m "mensaje": Guardar un punto de control.
+* git log: Ver el historial de cambios.
+
+El archivo.gitignore:
+Lo configuré para que no subiera:
+* bin/ y obj/ (archivos compilados)
+* .vs/ (configuración personal de Visual Studio)
+* *.user (archivos de usuario)
+* *.mdf y *.ldf (base de datos local)
+
+4.6 Los paquetes Nudget que instalé
+NuGet es como un "App Store" de librerías para .NET. Estos son los paquetes principales que usé:
+
+EN EL PROYECTO API:
+* Microsoft.EntityFrameworkCore.Design (8.0.21): Para las migraciones.
+* Microsoft.EntityFrameworkCore.SqlServer (8.0.21): Para usar SQL Server.
+* Microsoft.AspNetCore.Authentication.JwtBearer (8.0.21): Para autenticación con tokens (preparado para el futuro)
+* Swashbuckle.AspNetCore (8.1.4): Para generar Swagger.
+
+EN EL PROYECTO DATA:
+* Microsoft.AspNetCore.Identity.EntityFrameworkCore (8.0.21): Para Identity.
+* Microsoft.EntityFrameworkCore.SqlServer (8.0.21): Para SQL Server.
+
+Todos con versión 8.0.21 (menos Swagger) para que no hubiera problemas de 
+compatibilidad.
+
+4.7 Mi entorno de desarrollo
+El ordenador que usé:
+* Sistema: Windows 11
+* Visual Studio 2022 Community (versión 17.8.3)
+* .NET SDK 8.0.404
+* SQL Server LocalDB
+* Git 2.43
+
+También instalé:
+* SQL Server Management Studio (para ver la base de datos de forma visual)
+* Windows Terminal (para tener una consola mejor)
+5 Planificación, diagnóstico y contexto laboral
+5.1 ¿Cómo planifiqué el tiempo?
+Al principio del proyecto tuve que calcular cuánto tiempo me llevaría cada cosa. Hice un diagrama de Gantt (que es un gráfico que muestra las tareas en el tiempo) donde puse:
+* Qué tareas había que hacer.
+* Cuánto tiempo PENSABA que me llevaría (estimación)
+* Cuánto tiempo me llevó DE VERDAD (real)
+
+5.2 Diagrama de Gantt
+
+
+5.3 Análisis DAFO
+El análisis DAFO sirve para analizar las Debilidades, Amenazas, Fortalezas y Oportunidades de un proyecto. Lo hice al principio para saber a qué me enfrentaba.
+
+Análisis DAFOFortalezas (Interno)
+Cosas buenas que tengoDebilidades (Interno)
+Cosas que me pueden dificultar* Conozco C# de la FP
+* Problema real que conozo (mi familia)
+* Documentación de Microsoft muy buena.
+* Visual Studio facilita mucho.* Primera vez usando Entity Framework en un proyecto grande.
+* No he hecho APIs REST antes.
+* Tiempo limitado (debo compaginar trabajo y familia)
+* Trabajo solo, sin equipo.Oportunidades (externa)
+Cosas que puedo aprovecharAmenazas (externo)
+Riesgos externos* .Net es muy demandado en el mercado laboral.
+* Proyecto extensible en el futuro.
+* Puedo usarlo en mi portafolio profesional.
+* Aprender tecnologías que se usan en empresas reales.* Cambios de requisitos durante el desarrollo.
+* Problemas técnicos inesperados.
+* Sobreestimar mis capacidades.
+* Bloqueo por errores que no sé solucionar.
+5.4 Contexto laboral del proyecto
+Aunque este es un proyecto académico, lo he enfocado pensando en el mundo 
+laboral real:
+
+Competencias que demuestra:
+  Desarrollo backend:
+* Diseño de APIs REST
+* Arquitectura de software en capas.
+* Buenas prácticas de programación.
+
+  Bases de datos:
+* Modelado relacional.
+* Normalización.
+* Entity Framework Core.
+
+  Metodología:
+* Gestión de tiempo y recursos.
+* Priorización de tareas.
+* Adaptación a cambios.
+
+  HERRAMIENTAS PROFESIONALES:
+* Git para control de versiones.
+* Visual Studio.
+* Documentación con Swagger.
+
+  RESOLUCIÓN DE PROBLEMAS:
+* Investigación autónoma.
+* Debugging.
+* Lectura de documentación técnica.
+
+Aplicabilidad en el mercado laboral:
+Este proyecto me prepara para puestos como:
+* Desarrollador Backend .NET
+* Programador Full-Stack .NET
+* Desarrollador de APIs REST
+* Junior Developer C#
+
+Según las ofertas que he visto en InfoJobs:
+* Salario inicial: 18.000 - 24.000€/año
+* Con 1-2 años de experiencia: 24.000 - 32.000€/año
+* Tecnologías más pedidas: C#, ASP.NET Core, Entity Framework, SQL Server. Este proyecto me da experiencia práctica en todas esas tecnologías.
+
+6 Análisis del proyecto
+6.1 Requisitos funcionales
+Los requisitos funcionales son las cosas que el sistema DEBE hacer. Los organicé por prioridades:
+
+Prioridad alta (Implementados):
+RF1. Gestionar licencias IPTV
+* Crear nuevas licencias con todos sus datos.
+* Ver todas las licencias.
+* Ver licencias de un usuario específico.
+* Modificar licencias existentes.
+* Eliminar licencias.
+* Ver cuántos días faltan para que venza cada una.
+
+RF2. Sistema de autenticación
+* Registrar usuarios en el sistema.
+* Login con email y contraseña.
+* Gestión de sesiones.
+
+Prioridad media (Modelados, pero no implementados):
+RF3. Control parental
+* Activar/desactivar control parental.
+* Configurar PIN de 4 dígitos.
+* Marcar contenido como restringido.
+
+RF4. Gestionar listas de reproducción
+* Crear playlists M3U
+* Agregar canales a las playlists.
+* Organizar canales por categorías.
+
+RF5. Gestionar dispositivos
+* Registrar dispositivos autorizados.
+* Ver qué dispositivos hay activos.
+* Desautorizar dispositivos.
+
+Prioridad baja (No implementados):
+RF6. Notificaciones
+* Avisar cuando una licencia está por vencer.
+* Enviar emails automáticos.
+
+6.2 Requisitos no funcionales
+Son características de calidad que debe tener el sistema:
+
+RNF1. Seguridad
+* Las contraseñas deben estar encriptadas (Identity lo hace automáticamente)
+* Solo el propietario puede modificar sus licencias.
+* Validar todos los datos antes de guardarlos en la base de datos.
+
+RNF2. Rendimiento
+* Las consultas a la base de datos deben ser rápidas (menos de 1 segundo)
+* La API debe responder en menos de 2 segundos.
+
+RNF3. Usabilidad
+* Los errores deben mostrar mensajes claros.
+* La documentación Swagger debe ser fácil de entender.
+* Los endpoints deben seguir convenciones REST estándar.
+
+RNF4. Mantenibilidad
+* El código debe estar organizado en capas.
+* Usar nombres descriptivos para variables y métodos.
+* Comentar las partes complicadas.
+
+RNF5. Escalabilidad
+* La arquitectura debe permitir agregar nuevas funcionalidades fácilmente.
+* Usar inyección de dependencias para poder cambiar implementaciones.
+
+6.3 Modelo de datos
+Mi base de datos tiene 6 tablas principales:
+
+Ilustración 4: Base de datos IPTVManagerDb con 13 tablas 
+creadas mediante Entity Framework Core Migrations
+
+
+1. APPLICATIONUSER (Usuarios del sistema)
+* Id: Texto (clave primaria)
+* UserName: Texto único
+* Email: Texto único
+* FirstName: Texto
+* LastName: Texto
+* IsParentalControlEnabled: Booleano
+* ParentalControlPin: Texto (4 dígitos)
+
+2. LICENSE (Licencias IPTV)
+* Id: Entero autoincremental (clave primaria)
+* Name: Texto (obligatorio)
+* Provider: Texto
+* LicenseKey: Texto (obligatorio)
+* Username: Texto (opcional)
+* Password: Texto (opcional)
+* PurchaseDate: Fecha
+* ExpirationDate: Fecha
+* Cost: Decimal (18,2)
+* UserId: Texto (clave foránea a Users, OPCIONAL)
+
+3. PLAYLIST (Listas de reproducción)
+* Id: Entero autoincremental
+* Name: Texto
+* Url: Texto
+* IsActive: Booleano
+* LastUpdate: Fecha
+* UserId: Texto (clave foránea obligatoria)
+
+4. PLAYLISTITEM (Canales individuales)
+* Id: Entero autoincremental
+* Name: Texto
+* Url: Texto
+* Category: Texto
+* IsAdultContent: Booleano
+* PlaylistId: Entero (clave foránea obligatoria)
+
+5. DEVICE (Dispositivos autorizados)
+* Id: Entero autoincremental
+* Name: Texto
+* MacAddress: Texto (único)
+* DeviceType: Texto
+* IsActive: Booleano
+* LastAccess: Fecha
+* UserId: Texto (clave foránea obligatoria)
+
+6. AUDITLOG (Registro de auditoría)
+* Id: Entero autoincremental
+* Action: Texto (Create, Update, Delete)
+* EntityName: Texto
+* EntityId: Texto
+* Timestamp: Fecha
+* IpAddress: Texto
+* UserId: Texto (clave foránea opcional)
+
+Relaciones:
+* Un usuario puede tener MUCHAS licencias (1:N)
+* Una licencia puede NO tener usuario (opcional)
+* Un usuario puede tener MUCHAS playlists (1:N)
+* Una playlist tiene MUCHOS items (1:N)
+* Un usuario puede tener MUCHOS dispositivos (1:N)
+* Un usuario puede generar MUCHOS logs de auditoría (1:N)
+
+
+6.4 Casos de uso principales
+Los casos de uso describen qué puede hacer cada usuario en el sistema.
+
+Caso de uso 1: crear licencia
+Actor: Usuario registrado
+Descripción: El usuario añade una nueva licencia al sistema
+
+Flujo normal:
+I. El usuario hace clic en "Nueva Licencia"
+II. Rellena el formulario con los datos
+III. El sistema valida que la fecha de expiración sea futura
+IV. Se guarda la licencia en la base de datos
+V. Se muestra mensaje de confirmación
+
+Flujo alternativo (fecha incorrecta):
+a) Si la fecha de expiración es pasada, se muestra error
+b) El usuario corrige la fecha
+c) Continúa en paso 4
+
+Caso de uso 2: ver licencias próximas a vencer
+Actor: Usuario registrado
+Descripción: El usuario consulta qué licencias están por vencer
+
+Flujo normal:
+I. El usuario accede a "Licencias próximas a vencer"
+II. El sistema busca licencias que vencen en los próximos 30 días
+III. Se muestra lista ordenada por fecha de vencimiento
+
+Caso de uso 3: eliminar licencia
+Actor: Usuario registrado
+Descripción: El usuario borra una licencia que ya no necesita
+
+Flujo normal:
+I. El usuario selecciona una licencia
+II. Hace clic en "Eliminar"
+III. El sistema pide confirmación
+IV. El usuario confirma
+V. Se elimina la licencia de la base de datos
+
+Flujo alternativo (cancelar):
+a) El usuario cancela
+b) No se elimina nada
+
+6.5 Diagrama de clases
+
+
+Las clases principales son:
+
+LICENSE
+* Propiedades: Id, Name, Provider, LicenseKey, Username, Password, PurchaseDate, ExpirationDate, IsActive, Cost, Notes, UserId
+* Propiedades calculadas: IsExpired, DaysUntilExpiration
+* Relaciones: User (opcional)
+
+APPLICATIONUSER
+* Hereda de: IdentityUser
+* Propiedades adicionales: FirstName, LastName, CreatedDate, LastLoginDate, IsParentalControlEnabled, ParentalControlPin
+* Relaciones: Licenses (colección), Playlists (colección), Devices (colección)
+
+PLAYLIST
+* Propiedades: Id, Name, Url, IsActive, LastUpdate, UserId
+* Relaciones: Items (colección), User
+
+PLAYLISTITEM
+* Propiedades: Id, Name, Url, Category, IsAdultContent, PlaylistId
+* Relaciones: Playlist
+
+DEVICE
+* Propiedades: Id, Name, MacAddress, DeviceType, IsActive, LastAccess, UserId
+* Relaciones: User
+
+AUDITLOG
+* Propiedades: Id, Action, EntityName, EntityId, Timestamp, IpAddress, UserId
+* Relaciones: User (opcional)
+
+7 Diseño del proyecto
+7.1 Arquitectura del sistema
+Mi proyecto está organizado en 6 capas diferentes. Cada una tiene una 
+responsabilidad específica:
+
+Capa 1: DOMAIN (IPTVManager.Domain)
+Contiene las entidades del negocio (License, Playlist, etc.)
+¿Por qué?: Representa el modelo de datos sin depender de tecnologías específicas.
+
+Capa 2: DATA (IPTVManager.Data)
+Contiene el DbContext, las configuraciones de Entity Framework
+¿Por qué?: Todo lo relacionado con el acceso a la base de datos está aquí
+
+Capa 3: SERVICES (IPTVManager.Services)
+Contiene la lógica de negocio (LicenseService)
+¿Por qué?: Las reglas y validaciones del negocio están separadas de los controladores
+
+Capa 4: SHARED (IPTVManager.Shared)
+Contiene los DTOs que se comparten entre proyectos
+¿Por qué?: Permite reutilizar estos objetos tanto en la API como en Blazor
+
+Capa 5: API (IPTVManager.API)
+Contiene los controladores REST, Swagger, Program.cs
+¿Por qué?: Expone la funcionalidad a través de endpoints HTTP
+
+Capa 6: WEB (IPTVManager.Web)
+Contiene el proyecto Blazor Server (configurado, pero sin implementar)
+¿Por qué?: Sería la interfaz de usuario
+
+Ventajas de esta organización:
+* El código está ordenado
+* Es fácil saber dónde está cada cosa
+* Puedes cambiar una capa sin afectar a las demás
+* Se puede probar cada capa por separado
+
+Estructura de proyectos
+
+7.2 Diseño de la API REST
+La API sigue los principios REST y usa los métodos HTTP estándar:
+
+ENDPOINTS DE LICENSES:
+
+GET /api/Licenses
+* ¿Qué hace?: Devuelve todas las licencias
+* Respuesta: 200 OK con array de licencias
+* Sin autenticación por ahora
+
+GET /api/Licenses/{id}
+* ¿Qué hace?: Devuelve una licencia específica
+* Respuesta: 200 OK si existe, 404 Not Found si no existe
+
+GET /api/Licenses/user/{userId}
+* ¿Qué hace?: Devuelve las licencias de un usuario
+* Respuesta: 200 OK con array (puede estar vacío)
+
+GET /api/Licenses/expiring/{days}
+* ¿Qué hace?: Devuelve licencias que vencen en X días
+* Ejemplo: GET /api/Licenses/expiring/30
+* Respuesta: 200 OK con array
+
+POST /api/Licenses
+* ¿Qué hace?: Crea una nueva licencia
+* Body: CreateLicenseDto en formato JSON
+* Respuesta: 201 Created con la licencia creada
+* Header Location: URL de la nueva licencia
+
+PUT /api/Licenses/{id}
+* ¿Qué hace?: Actualiza una licencia existente
+* Body: CreateLicenseDto con los nuevos datos
+* Respuesta: 200 OK con licencia actualizada, 404 si no existe
+
+DELETE /api/Licenses/{id}
+* ¿Qué hace?: Elimina una licencia
+* Respuesta: 204 No Content si OK, 404 si no existe
+7.3 Explicación del código principal
+Voy a explicar las partes más importantes del código:
+
+ENTIDAD LICENSE (Domain/Entities/License.cs)
+public class License
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Provider { get; set; } = string.Empty;
+    public string LicenseKey { get; set; } = string.Empty;
+    public DateTime ExpirationDate { get; set; }
+    public decimal Cost { get; set; }
+
+    // Relación con usuario (AHORA OPCIONAL)
+    public string? UserId { get; set; } // ? Agregado el ?
+    
+    [JsonIgnore]
+    public ApplicationUser? User { get; set; } // ? Agregado el ?
+
+    // Propiedades calculadas
+    [JsonIgnore]
+    public bool IsExpired => ExpirationDate < DateTime.UtcNow;
+    
+    [JsonIgnore]
+    public int DaysUntilExpiration => (ExpirationDate - DateTime.UtcNow).Days;
+
+Lo importante aquí:
+* UserId tiene el símbolo ? que significa que puede ser NULL.
+* IsExpired y DaysUntilExpiration se calculan automáticamente.
+* No se guardan en la base de datos, se calculan cada vez.
+
+DBCONTEXT (Data/ApplicationDbContext.cs)
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        // License -> User (muchos a uno - AHORA OPCIONAL)
+        builder.Entity<License>()
+            .HasOne(l => l.User)
+            .WithMany(u => u.Licenses)
+            .HasForeignKey(l => l.UserId)
+            .OnDelete(DeleteBehavior.SetNull) // ? Cambiado de Cascade a SetNull
+            .IsRequired(false); // ? Agregado: la relación es opcional
+
+Lo importante:
+* HasOne/WithMany: Define que un User tiene muchas Licenses OnDelete(SetNull): Si borras un User, sus Licenses se quedan con UserId = null
+* IsRequired(false): El UserId es opcional.
+
+SERVICIO (Services/LicenseService.cs)
+
+    public async Task<LicenseDto> CreateLicenseAsync(CreateLicenseDto licenseDto)
+    {
+        if (licenseDto.ExpirationDate < DateTime.UtcNow)
+        {
+            throw new ArgumentException("No se puede crear una licencia ya expirada");
+        }
+        var license = new License
+        {
+            Name = licenseDto.Name,
+            Provider = licenseDto.Provider,
+            LicenseKey = licenseDto.LicenseKey,
+            Username = licenseDto.Username,
+            Password = licenseDto.Password,
+
+        _context.Licenses.Add(license);
+        await _context.SaveChangesAsync();
+        
+        return MapToDto(license);
+    }
+Lo importante:
+* Primero valida (fecha de expiración)
+* Luego crea la entidad.
+* Guarda en BD
+* Devuelve un DTO (no la entidad directamente)
+
+CONTROLADOR (API/Controllers/LicensesController.cs)
+    [HttpPost]
+    public async Task<ActionResult<LicenseDto>> CreateLicense(CreateLicenseDto licenseDto)
+    {
+        try
+        {
+            var createdLicense = await _licenseService.CreateLicenseAsync(licenseDto);
+            return CreatedAtAction(nameof(GetLicense), new { id = createdLicense.Id }, createdLicense);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+Lo importante:
+* Llama al servicio (no accede a la BD directamente)
+* Maneja errores con try-catch.
+* Devuelve códigos HTTP apropiados (201 Created, 400 Bad Request)
+
+Entidad License
+
+7.4 Los DTOs
+Los DTOs (Data Transfer Objects) son objetos que he utilizado para transferir datos entre la API y el cliente.
+
+Tengo dos DTOs para License:
+CREATELICENSEDTO (para crear/actualizar):
+* Solo tiene las propiedades que el usuario puede enviar
+* No tiene Id (lo genera la base de datos)
+* No tiene propiedades calculadas
+
+LICENSEDTO (para devolver):
+* Tiene todas las propiedades, incluido el Id
+* Tiene las propiedades calculadas (IsExpired, DaysUntilExpiration)
+
+Ventajas de usar DTOs:
+* SEGURIDAD: No expongo propiedades internas de la entidad.
+* FLEXIBILIDAD: Puedo tener varias "vistas" de la misma entidad.
+* VERSIONADO: Si cambio la entidad, puedo mantener el DTO igual.
+* VALIDACIÓN: Puedo tener validaciones diferentes en el DTO.
+
+7.5 ¿Cómo funciona la inyección de dependencias?
+En Program.cs registro los servicios:
+// Registrar servicios
+builder.Services.AddScoped<ILicenseService, LicenseService>();
+
+Esto significa:
+* Cuando alguien pida ILicenseService, dale un LicenseService
+* Crea uno nuevo por cada petición HTTP (Scoped)
+Luego en el controlador:
+public class LicensesController : ControllerBase
+{
+    private readonly ILicenseService _licenseService;
+
+    public LicensesController(ILicenseService licenseService)
+    {
+        _licenseService = licenseService;
+    }
+
+SP.NET Core crea automáticamente el LicenseService y lo pasa al constructor.
+Ventajas:
+* No tengo que crear los objetos manualmente
+* Fácil de testear (puedo inyectar un mock)
+* Bajo acoplamiento (dependo de la interfaz, no de la clase concreta)
+
+8 Despliegue y pruebas
+8.1 Entorno de desarrollo
+El proyecto se desarrolló y probó en este entorno:
+
+HARDWARE:
+* Sistema Operativo: Windows 11
+* Procesador: Intel(R) Core(TM) i9-9980HK CPU @ 2.40GHz (16CPUs), 2.4GHz
+* RAM: 64GB
+* Disco: SSD
+
+SOFTWARE:
+* Visual Studio 2022 Community (v17.8.3)
+* .NET SDK 8.0.404
+* SQL Server LocalDB
+* Git 2.43
+* Navegador: Microsoft Edge
+
+Swagger página principal
+
+8.2 Pruebas funcionales de la API
+Todas las pruebas se realizaron usando Swagger UI, que está en:
+https://localhost:7235/swagger
+
+Prueba 1: Crear una licencia (POST)
+
+Endpoint: POST /api/Licenses
+Body enviado:
+{
+  "name": "Netflix Premium",
+  "provider": "Netflix",
+  "licenseKey": "NFLX-2024-ABCD-1234",
+  "username": "usuario@email.com",
+  "password": "miPassword123",
+  "purchaseDate": "2024-12-06T00:00:00Z",
+  "expirationDate": "2025-12-31T23:59:59Z",
+  "isActive": true,
+  "cost": 15.99,
+  "notes": "Cuenta familiar premium"
+}
+
+Resultado esperado: 201 Created
+Resultado obtenido: ? 201 Created
+Respuesta recibida:
+{
+  "id": 1,
+  "name": "Netflix Premium",
+  "provider": "Netflix",
+  ... (resto de datos),
+  "isExpired": false,
+  "daysUntilExpiration": 390
+}
+
+Prueba 2: Listar todas las licencias (GET)
+
+Endpoint: GET /api/Licenses
+Resultado esperado: 200 OK con array
+Resultado obtenido: ? 200 OK
+Respuesta: Array con 1 licencia (la creada en prueba 1)
+
+Prueba 3: Obtener licencia por ID (GET)
+
+Endpoint: GET /api/Licenses/1
+Resultado esperado: 200 OK
+Resultado obtenido: ? 200 OK
+Respuesta: Objeto con la licencia ID 1
+
+Prueba 4: Intentar crear licencia con fecha pasada
+
+Endpoint: POST /api/Licenses
+Body: (con expirationDate = "2020-01-01")
+
+Resultado esperado: 400 Bad Request con mensaje de error
+Resultado obtenido: ? 400 Bad Request
+
+Mensaje: "No se puede crear una licencia ya expirada"
+Conclusión: La validación funciona correctamente
+
+Prueba 5: Actualizar licencia (PUT)
+
+Endpoint: PUT /api/Licenses/1
+Body: (con coste cambiado a 19.99)
+
+Resultado esperado: 200 OK
+Resultado obtenido: ? 200 OK
+Conclusión: Se actualizó correctamente
+
+Prueba 6: Licencias próximas a vencer
+
+Endpoint: GET /api/Licenses/expiring/400
+(Licencias que vencen en los próximos 400 días)
+
+Resultado esperado: 200 OK con array
+Resultado obtenido: ? 200 OK
+Respuesta: Array con 1 licencia (vence en 390 días)
+
+Prueba 7: Eliminar licencia (DELETE)
+
+Endpoint: DELETE /api/Licenses/1
+Resultado esperado: 204 No Content
+Resultado obtenido: ? 204 No Content
+Verificación: GET /api/Licenses devuelve array vacío ?
+
+
+Swagger POST response 201
+
+8.3 Tabla resumen de pruebas
+PruebaMétodoEsperadoResultadoCrear licenciaPOST201 Created?Listar licenciaGET200 OK?Obtener por IDGET200 OK?Validar fecha pasadaPOST400 BadReq?Actualizar licenciaPUT200 OK?Licencias por vencerGET200 OK?Eliminar licenciaDELETE204 NoCont?Obtener licencia borradaGET404 NotFound?
+Resultado: 8 de 8 pruebas pasadas.
+
+8.4 Preparación para el despliegue
+Aunque no llegué a desplegar el proyecto en un servidor real, estuve documentándome y vi que podía hacerse de la siguiente manera:
+
+Despliegue en IIS (local):
+I. Publicar desde Visual Studio (Build > Publish)
+II. Crear Application Pool en IIS (.NET CLR: No Managed Code)
+III. Crear sitio web apuntando a la carpeta publicada
+IV. Configurar connection string en appsettings.json
+V. Aplicar migraciones en la base de datos de producción
+
+Despliegue en AZURE:
+I. Crear App Service en Azure Portal
+II. Crear Azure SQL Database
+III. Configurar connection strings en Azure
+IV. Publicar desde Visual Studio o GitHub Actions
+V. Ejecutar migraciones con dotnet ef database update
+
+Archivos necesarios para despliegue:
+* appsettings.json (con connection string de producción)
+* Todos los archivos publicados
+* Base de datos con migraciones aplicadas
+
+9 Conclusiones
+9.1 Objetivos alcanzados
+Al finalizar el proyecto, he completado:
+
+?10 objetivos específicos al 100%:
+1. Arquitectura en capas
+2. API REST con 7 endpoints
+3. Identity configurado
+4. Modelo de datos con 6 tablas
+5. Entity Framework con migraciones
+6. Servicios de negocio
+7. DTOs implementados
+8. Validaciones en servidor
+9. Documentación Swagger
+10. Control de versiones Git
+?? 2 objetivos parciales:
+11. Blazor Server (configurado, sin funcionalidad)
+12. Control parental (modelado, sin flujo completo)
+
+Porcentaje completado: 83% (10 de 12 completados totalmente)
+Considero que el enfoque en el backend ha resultado en una API REST sólida, documentada y lista para ser consumida por cualquier tipo de cliente (web, móvil, desktop).
+
+9.2 Dificultades encontradas y cómo se resolvieron
+Dificultad 1: Relaciones opcionales en Entity Framework
+
+Problema: Al principio hice que todas las licencias necesitaran un usuario. 
+Cuando intentaba crear una licencia sin usuario me daba error "The User 
+field is required".
+
+Solución: Hice el UserId nullable (string?) y configuré la relación como 
+opcional en el DbContext con .IsRequired(false).
+
+Aprendizaje: Hay que pensar bien las relaciones desde el principio, 
+porque cambiarlas después requiere crear nuevas migraciones.
+
+
+Dificultad 2: Referencias circulares en JSON
+
+Problema: Cuando intentaba devolver una licencia con su usuario, me daba 
+error de serialización porque User tiene Licenses, que tienen User, que 
+tienen Licenses...
+
+Solución: Usar [JsonIgnore] en las propiedades de navegación y trabajar 
+siempre con DTOs en vez de devolver las entidades directamente.
+
+Aprendizaje: Los DTOs no solo son buenas prácticas, también evitan 
+problemas técnicos.
+
+
+Dificultad 3: Versiones de dotnet-ef
+
+Problema: Las migraciones no funcionaban y me daba errores raros. Resulta 
+que tenía instalado dotnet-ef versión 10 pero mi proyecto es .NET 8.
+
+Solución: Desinstalar con "dotnet tool uninstall -g dotnet-ef" y reinstalar 
+la versión correcta "dotnet tool install -g dotnet-ef --version 8.0.11".
+
+Aprendizaje: Siempre revisar que las versiones de las herramientas 
+coincidan con la versión del proyecto.
+
+
+Dificultad 4: Gestión del tiempo
+
+Problema: Al principio planifiqué hacer interfaz completa con Blazor, control 
+parental funcionando, notificaciones, etc. Me di cuenta a mitad del proyecto 
+que no me iba a dar tiempo.
+
+Solución: Reevaluar las prioridades y centrarme en hacer un backend sólido 
+en vez de muchas cosas a medias.
+
+Apendizaje: Es mejor hacer pocas cosas BIEN que muchas cosas MAL. 
+En proyectos reales también hay que saber priorizar.
+
+9.3 ¿Qué he aprendido?
+Técnicamente:
+
+?? Entity Framework Core
+* Configurar relaciones (uno a muchos, opcional)
+* Migraciones Code-First
+* LINQ para consultas
+* Fluent API para configuración avanzada
+
+?? ASP.NET Core Web API
+* Diseñar endpoints REST siguiendo estándares
+* Códigos de respuesta HTTP apropiados
+* Configuración con Program.cs
+* Inyección de dependencias
+
+?? ASP.NET Core Identity
+* Cómo funciona el sistema de autenticación
+* Tablas que crea automáticamente
+* Configuración de políticas de contraseña
+
+?? Arquitectura de software
+* Por qué separar en capas
+* Cómo organizar un proyecto grande
+* Ventajas del bajo acoplamiento
+
+?? Git
+* Commits descriptivos
+* .gitignore
+
+?? Swagger/OpenAPI
+* Documentación automática
+* Probar APIs desde el navegador
+
+Metodológicamente:
+
+?? Gestión del tiempo
+* Estimar tareas es difícil (siempre tardan más de lo que piensas)
+* Dividir el trabajo en sprints ayuda a mantener el foco
+* Tener un plan B cuando algo no sale
+
+?? Priorización
+* No puedes hacer todo, hay que elegir qué es importante
+* Es mejor tener 10 funcionalidades al 100% que 20 al 50%
+
+?? Resolución de problemas
+* Google y Stack Overflow son tus amigos
+* La documentación oficial es la mejor fuente
+* A veces la solución es más simple de lo que parece
+
+?? Documentación
+* Documentar mientras haces el proyecto, no al final
+* Los comentarios en el código ayudan (incluso a ti mismo después)
+
+10 Vías futuras
+10.1 Funcionalidades planificadas no implementadas
+Hay varias funcionalidades que planeé al principio, pero no llegué a implementar por falta de tiempo. Las dejo documentadas como líneas de trabajo futuras:
+
+Alta prioridad:
+* Interfaz Blazor completa: Desarrollar todas las páginas de la interfaz web usando Blazor Server, consumiendo la API REST que ya está hecha.
+* Sistema de control parental: Implementar el flujo completo del control parental que ya está modelado en la base de datos.
+
+Mediana prioridad:
+* Servicios para playlists y devices: crear los servicios y controladores para las entidades que ya están modeladas pero sin funcionalidad.
+* Sistema de notificaciones: Avisar automáticamente cuando una licencia está por vencer.
+Baja prioridad:
+* Dashboard con estadísticas: Página con gráficos y estadísticas por ejemplo los costes de las suscripciones.
+* Aplicación móvil: Que se pueda utilizar desde un dispositivo móvil, que tenga notificaciones push.
+
+10.2 Roadmap sugerido
+Si tuviera que seguir con el proyecto lo haría de la siguiente manera:
+
+Mes 1:
+* Interfaz Blazor completa.
+* Control parental funcional.
+
+Mes 2
+* Servicios de Playlists y devices..
+* Sistema de notificaciones.
+* Dashboard con gráficos.
+
+Mes 3
+* Despliegue en Azure
+* Documentación completa
+
+Mes 4
+* Aplicación móvil.
+
+11 Bibliografía
+Durante el desarrollo de este proyecto consulté las siguientes fuentes:
+
+Documentación oficial:
+* Microsoft. (2024). ASP.NET Core documentation. Microsoft Docs. https://docs.microsoft.com/aspnet/core
+* Microsoft. (2024). Entity Framework Core documentation. Microsoft Docs. ttps://docs.microsoft.com/ef/core
+* Microsoft. (2024). C# programming guide. Microsoft Docs. https://docs.microsoft.com/dotnet/csharp
+* Microsoft. (2024). Blazor documentation. Microsoft Docs. https://docs.microsoft.com/aspnet/core/blazor
+
+Recursos web:
+* Stack Overflow. (2024). Diversas consultas sobre Entity Framework Core, ASP.NET Core y C#. https://stackoverflow.com
+* GitHub. (2024). Repositorios de ejemplo de ASP.NET Core. https://github.com/dotnet
+
+Tutoriales en vídeo:
+* Microsoft Developer. Canal oficial de .NET en YouTube. https://www.youtube.com/@dotnet
+* IAmTimCorey. Tutoriales de C# y .NET.https://www.youtube.com/@IAmTimCorey
+
+Herramientas online:
+* draw.io. (2024). Herramienta para diagramas. https://app.diagrams.net
+* Git. (2024). Sistema de control de versiones. https://git-scm.com
+
+12 Anexos
+12.1 Manual de instalación
+Este manual explica cómo instalar y ejecutar el proyecto en un equipo nuevo.
+
+Requisitos del sistema:
+
+Hardware mínimo:
+* Procesador: 2 GHz o superior
+* RAM: 4 GB (recomendado 8 GB)
+* Disco: 2 GB libres
+* Conexión a Internet (para descargar paquetes)
+
+Software necesario:
+* Windows 10/11 (también funciona en Linux/macOS)
+* .NET 8 SDK (descargable de https://dot.net)
+* Visual Studio 2022 Community (o Visual Studio Code)
+* SQL Server LocalDB (viene con Visual Studio)
+* Git (opcional, para clonar el repositorio)
+
+
+Pasos de instalación:
+
+Paso 1: Instalar .NET 8 SDK
+1. Ir a https://dot.net
+2. Descargar .NET 8 SDK
+3. Ejecutar el instalador
+4. Verificar la instalación abriendo una terminal:
+  dotnet --version
+   (Debe mostrar: 8.0.xxx)
+
+
+Paso 2: Instalar Visual Studio 2022
+1. Descargar de https://visualstudio.microsoft.com
+2. Durante la instalación, seleccionar:
+   - ASP.NET and web development
+   - .NET desktop development
+3. Incluir: SQL Server Express LocalDB
+
+
+Paso 3: Obtener el código del proyecto
+Opción A - Si tienes Git:
+git clone https://github.com/AntonioBejaranoLujan/IPTVManager.git
+cd IPTVManager
+
+OPCIÓN B - Sin Git:
+1. Descargar el ZIP del proyecto
+2. Extraer en una carpeta
+3. Abrir la carpeta
+
+Paso 4: Restaurar paquetes NuGet
+1. Abrir terminal en la carpeta del proyecto
+2. Ejecutar:
+  dotnet restore
+
+Paso 5: Configurar la base de datos
+1. Abrir el proyecto en Visual Studio
+2. Abrir Package Manager Console (Tools > NuGet Package Manager > PMC)
+3. Ejecutar:
+Update-Database -Project IPTVManager.Data
+4. Esto creará la base de datos IPTVManagerDb
+
+Paso 6: Ejecutar el proyecto
+OPCIÓN A - Desde Visual Studio:
+1. Establecer IPTVManager.API como proyecto de inicio
+2. Presionar F5
+3. Se abrirá el navegador en https://localhost:7235/swagger
+
+OPCIÓN B - Desde terminal:
+cd IPTVManager.API
+dotnet run
+(Abrir manualmente: https://localhost:7235/swagger)
+
+VERIFICACIÓN:
+
+Si todo funcionó correctamente deberías ver:
+* La página de Swagger con los endpoints de Licenses
+* Poder probar POST para crear una licencia
+* La base de datos con 13 tablas en SQL Server
+
+PROBLEMAS COMUNES:
+* Error: "Unable to find dotnet-ef"
+  Solución: Instalar con: dotnet tool install -g dotnet-ef --version 8.0.11
+* Error: "Database connection failed"
+  Solución: Verificar que SQL Server LocalDB está instalado y ejecutándose
+* Error: "Port 7235 already in use"
+  Solución: Cambiar el puerto en launchSettings.json
+
+12.2 Manual de usuario
+Este manual explica cómo usar la API REST del proyecto.
+
+Acceso al sistema:
+1. Ejecutar el proyecto (ver Manual de Instalación)
+2. Abrir navegador en: https://localhost:7235/swagger
+3. Verás la documentación interactiva de la API
+
+Funcionalidad 1: Crear una licencia
+Endpoint: POST /api/Licenses
+
+Pasos:
+1. En Swagger, localiza "POST /api/Licenses"
+2. Haz clic en "Try it out"
+3. Copia este JSON de ejemplo en el body:
+
+{
+  "name": "Netflix Premium",
+  "provider": "Netflix",
+  "licenseKey": "NFLX-2024-XXXX-XXXX",
+  "username": "tu_usuario@email.com",
+  "password": "tu_password",
+  "purchaseDate": "2024-12-01T00:00:00Z",
+  "expirationDate": "2025-12-31T23:59:59Z",
+  "isActive": true,
+  "cost": 15.99,
+  "notes": "Cuenta familiar"
+}
+
+4. Haz clic en "Execute"
+5. Deberías ver respuesta "201 Created"
+
+Importante:
+* La fecha de expiración DEBE ser futura
+* El coste es opcional
+* El userId es opcional (puedes omitirlo)
+
+Funcionalidad 2: Ver todas las licencias
+
+Endpoint: GET /api/Licenses
+
+Pasos:
+1. Localiza "GET /api/Licenses"
+2. Haz clic en "Try it out"
+3. Haz clic en "Execute"
+4. Verás un array con todas las licencias
+
+Respuesta ejemplo:
+[
+  {
+    "id": 1,
+    "name": "Netflix Premium",
+    "provider": "Netflix",
+    ...
+    "isExpired": false,
+    "daysUntilExpiration": 390
+  }
+]
+
+Funcionalidad 3: Ver una licencia específica
+Endpoint: GET /api/Licenses/{id}
+
+Pasos:
+1. Localiza "GET /api/Licenses/{id}"
+2. Haz clic en "Try it out"
+3. Introduce el ID (ejemplo: 1)
+4. Haz clic en "Execute"
+
+Si existe: Respuesta 200 OK con la licencia
+Si no existe: Respuesta 404 Not Found
+
+
+Funcionalidad 4: Ver licencias próximas a vencer
+Endpoint: GET /api/Licenses/expiring/{days}
+
+Pasos:
+1. Localiza "GET /api/Licenses/expiring/{days}"
+2. Introduce cuántos días (ejemplo: 30)
+3. Haz clic en "Execute"
+4. Verás licencias que vencen en los próximos 30 días
+
+Funcionalidad 5: Actualizar una licencia
+Endpoint: PUT /api/Licenses/{id}
+
+Pasos:
+1. Localiza "PUT /api/Licenses/{id}"
+2. Introduce el ID de la licencia a modificar
+3. Introduce el JSON completo con los nuevos datos
+4. Haz clic en "Execute"
+Respuesta: 200 OK con la licencia actualizada
+
+Funcionalidad 6: Eliminar una licencia
+Endpoint: DELETE /api/Licenses/{id}
+
+Pasos:
+1. Localiza "DELETE /api/Licenses/{id}"
+2. Introduce el ID
+3. Haz clic en "Execute"
+Respuesta: 204 No Content (sin contenido en el body)
+
+Códigos de respuesta:
+200 OK: Operación exitosa
+201 Created: Recurso creado correctamente
+204 No Content: Borrado exitoso
+400 Bad Request: Datos incorrectos (revisar el JSON)
+404 Not Found: Recurso no encontrado
+
+CONSEJOS:
+* Guarda el ID que te devuelve al crear una licencia
+* Las fechas deben estar en formato ISO 8601 (año, mes, día)
+* El coste acepta decimales con punto (15.99)
+* Puedes crear múltiples licencias para probar
+
+PRÓXIMOS PASOS:
+Una vez familiarizado con la API, puedes:
+* Consumirla desde una app web
+* Crear una app móvil que la use
+* Integrarla con otros sistemas
+
+12.3 Capturas de pantalla adicionales del sistema
+A continuación, se presentan capturas complementarias del código fuente, configuración y pruebas de la API.
+
+12.3.1 Código fuente
+
+ApplicationDbContext.cs con configuración de relaciones
+
+LicenseService - Método CreateLicenseAsync
+
+
+LicensesController - Endpoint POST
+
+
+Program.cs - Configuración de servicios
+
+12.3.2 Pruebas API con Swagger
+
+
+Request POST /api/Licenses
+
+
+Response GET /api/Licenses - Listado completo
+
+
+Response GET /api/Licenses/{id} - Licencia específica
+
+
+Response DELETE /api/Licenses/{id} - Eliminación exitosa
+
+12.3.3 Base de datos
+
+Estructura de la tabla Licenses en SQL Server
+
+
+
+
